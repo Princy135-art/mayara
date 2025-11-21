@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Drop down</title>
+
+<style>
+    body {
+        margin: 0;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background:#7a7676;
+        font-family: Arial, sans-serif;
+        text-align: center;
+    }
+
+    .bounce {
+        font-size: 48px;
+        font-weight: bold;
+        animation: smoothBounce 3s ease-out 1;
+    }
+
+    @keyframes smoothBounce {
+        0% { transform: translateY(0); opacity: 0; }
+        20% { transform: translateY(-12px); opacity: 1; }
+        40% { transform: translateY(0); }
+        60% { transform: translateY(-6px); }
+        80% { transform: translateY(0); }
+        100% { transform: translateY(0); }
+    }
+
+    .subtext {
+        font-size: 40px;
+        margin-top: 10px;
+        color: #141212;
+        opacity: 0;
+        animation: fadeIn 1s ease forwards;
+        animation-delay: 0.8s;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+</style>
+</head>
+<body>
+
+    <div class="bounce">Sorry</div>
+    <div class="subtext">This is under development</div>
+
+</body>
+</html>
+

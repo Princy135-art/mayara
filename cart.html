@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Cart | MAYARA</title>
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+  />
+  <style>
+    body {
+      font-family: "Poppins", sans-serif;
+      margin: 0;
+      padding: 0;
+      background:#7a7676 ;
+    }
+header {
+  display: flex;
+  justify-content: flex-end;
+  padding: 20px;
+  background:#7a7676;
+}
+ header h1 {
+      font-size: 1.8rem;
+    }
+
+    .cart-icon {
+      font-size: 2rem;
+      color: black;
+      position: relative;
+    }
+
+    .cart-icon span {
+      position: absolute;
+      top: -8px;
+      right: -10px;
+      background: red;
+      color: white;
+      font-size: 12px;
+      border-radius: 50%;
+      padding: 3px 7px;
+    }
+
+    .cart-container {
+      max-width: 900px;
+      margin: 60px auto;
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    .empty-cart {
+      text-align: center;
+      padding: 80px 0;
+      color: #555;
+    }
+
+    .empty-cart i {
+      font-size: 5rem;
+      color: #ccc;
+    }
+
+    .cart-items {
+      display: none;
+    }
+
+    .cart-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #ddd;
+      padding: 15px 0;
+    }
+
+    .cart-item img {
+      width: 80px;
+      height: 80px;
+      object-fit: cover;
+      border-radius: 10px;
+    }
+
+    .cart-item-info {
+      flex: 1;
+      margin-left: 20px;
+    }
+
+    .cart-item-info h4 {
+      margin: 0;
+      font-size: 1.2rem;
+    }
+
+    .cart-total {
+      text-align: right;
+      margin-top: 20px;
+      font-size: 1.2rem;
+      font-weight: bold;
+    }
+
+    .checkout-btn {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 12px 25px;
+      background: black;
+      color: white;
+      border-radius: 5px;
+      text-decoration: none;
+      transition: background 0.3s;
+    }
+
+    .checkout-btn:hover {
+      background: #333;
+    }
+  </style>
+</head>
+<body>
+<header>
+    <a href="#" class="cart-icon">
+      <i class="fas fa-shopping-cart"></i>
+      <span id="cart-count">0</span>
+    </a>
+  </header>
+
+  <div class="cart-container">
+    <div class="empty-cart" id="emptyCart">
+      <i class="fas fa-shopping-cart"></i>
+      <h2>Your cart is empty</h2>
+      <p>Looks like you haven’t added anything yet.</p>
+      <a href="shop.html" class="checkout-btn">Shop Now</a>
+    </div>
+
+    <div class="cart-items" id="cartItems"></div>
+    <div class="cart-total" id="cartTotal"></div>
+  </div>
+
+  <script>
+    // --- Step 1: Retrieve items from localStorage ---
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+    const emptyCart = document.getElementById("emptyCart");
+    const cartItems = document.getElementById("cartItems");
+    const cartTotal = document.getElementById("cartTotal");
+    const cartCount = document.getElementById("cart-count");
+
+    // --- Step 2: Update Cart Count ---
+    cartCount.textContent = cart.length;
+
+    // --- Step 3: If empty, show "empty" view ---
+    if (cart.length === 0) {
+      emptyCart.style.display = "block";
+      cartItems.style.display = "none";
+    } else {
+      emptyCart.style.display = "none";
+      cartItems.style.display = "block";
+    }
+
+    // --- Step 4: Render Cart Items ---
+    let total = 0;
+    cartItems.innerHTML = "";
+    cart.forEach((item, index) => {
+      total += item.price;
+
+      const div = document.createElement("div");
+      div.classList.add("cart-item");
+      div.innerHTML = `
+        <img src="${item.image}" alt="${item.name}">
+        <div class="cart-item-info">
+          <h4>${item.name}</h4>
+          <p>$${item.price.toFixed(2)}</p>
+        </div>
+        <button onclick="removeItem(${index})" style="background:none;border:none;color:red;cursor:pointer;">
+          <i class="fas fa-trash"></i>
+        </button>
+      `;
+      cartItems.appendChild(div);
+    });
+
+    // --- Step 5: Show Total ---
+    cartTotal.innerHTML = `Total: $${total.toFixed(2)} 
+      <a href="#" class="checkout-btn">Checkout</a>`;
+
+    // --- Step 6: Remove Item Function ---
+    function removeItem(index) {
+      cart.splice(index, 1);
+      localStorage.setItem("cart", JSON.stringify(cart));
+      location.reload();
+    }
+  </script>
+</body>
+</html>

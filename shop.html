@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MAYARA Shop</title>
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+  />
+  <style>
+    body {
+         font-family:"Poppins",sans-serif;
+          margin:0; 
+          padding:0;
+          background:#7a7676; }
+    header {
+         padding: 8px 25px;
+          background:#7a7676;
+          display:flex;
+           justify-content:space-between;
+            align-items:center; 
+            box-shadow:0 2px 8px rgba(0, 0, 0, 0.1);
+             position: sticky;
+              top:0;
+              z-index:100;}
+    h1 { 
+        font-size:2rem;
+       }
+    a {
+        text-decoration: none;
+    }
+    .cart-icon { 
+        position: relative; 
+        font-size:1.4rem; 
+        text-decoration:none;
+         color:black; }
+    .cart-icon span { 
+        position: absolute;
+         top:-8px; right:-10px;
+          background:red;
+           color:white;
+            font-size:12px;
+             border-radius:50%;
+              padding:3px 7px;
+               cursor:pointer; }
+
+    /* Shop Grid */
+    .shop-container { 
+        max-width:1200px; 
+        margin:60px auto; 
+        display:grid; 
+        grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); 
+        gap:20px; 
+        padding:0 20px; }
+    .product-card { 
+        background:rgb(4, 0, 0);
+         border-radius:10px;
+          box-shadow:0 2px 8px rgba(0,0,0,0.1);
+           padding:10px; 
+           cursor:pointer; 
+           transition:0.3s; }
+    .product-card:hover { 
+        transform: translateY(-5px);
+         box-shadow:0 4px 12px rgba(0,0,0,0.2); }
+    .product-card img {
+      display: block;
+         width:100%; 
+         height:280px;
+         object-fit:cover;
+         object-position:center ;
+         border-radius:10px; }
+    .product-card h3 {
+         margin:10px 0 5px;
+          font-size:1.1rem; }
+    .product-card p { 
+        margin:0; 
+        color:#f0e8e8; 
+        font-size:0.95rem; }
+    .btn { 
+        display:inline-block;
+         padding:10px 20px; 
+         margin-right:15px;
+          background:black; 
+          color:white; 
+          border-radius:5px;
+           text-decoration:none; 
+           cursor:pointer; 
+           font-size:1rem; }
+
+    /* Product Details */
+    .product-container {
+         display:none;
+        max-width:900px; 
+        margin:60px auto;
+         background:rgb(245, 244, 244);
+          border-radius:10px;
+           padding:30px;
+            box-shadow:0 2px 8px rgba(0,0,0,0.1); display:none; }
+    .product-image-wrapper {
+         width:100%; 
+         height:500px; 
+         display:flex;
+         align-items: center;
+          justify-content:center;
+          overflow: hidden;
+         background:#7a7676;
+          border-radius:10px; }
+          .product-image-wrapper img {
+        display: block;
+           max-width: 100%;
+             max-height: 100%;
+             height: auto;
+                 width: auto;
+             object-fit: contain;     /* show entire image, no cropping */
+              object-position: center;
+             border-radius: 8px;
+}
+.product-container h2 {
+    margin:20px 0 10px; }
+.product-container p {
+    color:#7a7676;
+    font-size:1rem; }
+    .quantity-container {
+        margin:15px 0; }
+    .quantity-container input {
+         width:60px; 
+         padding:5px; 
+         font-size:1rem;
+          text-align:center; }
+
+    /* Reviews */
+    .reviews { 
+        margin-top:30px; }
+    .reviews h3 {
+        margin-bottom:10px; }
+    .review-item {
+         border-top:1px solid #ddd;
+          padding:10px 0; }
+
+    /* Similar Products */
+    .similar-products { 
+        margin-top:30px; }
+    .similar-products h3 { 
+        margin-bottom:10px; }
+    .similar-grid { 
+        display:grid;
+         grid-template-columns:repeat(auto-fill,minmax(150px,1fr)); 
+         gap:15px; }
+    .similar-grid img { 
+        width:100%; 
+        height:180px; 
+        object-fit:cover;
+        border-radius:10px; 
+        cursor:pointer; }
+        /* Responsive tweaks */
+  @media (max-width: 600px) {
+    .product-card img { height: 220px; }
+    .product-image-wrapper { height: 320px; }
+  }
+
+  </style>
+</head>
+<body>
+
+<header>
+  <a href="index.html">
+     <h1>MAYARA</h1>
+  </a>
+  <a href="cart.html" class="cart-icon">
+    <i class="fas fa-shopping-cart"></i>
+    <span id="cart-count">0</span>
+  </a>
+</header>
+
+<!-- Shop Grid -->
+<div class="shop-container" id="shopContainer"></div>
+
+<!-- Product Details -->
+<div class="product-container" id="productContainer">
+  <img id="prodImg" src="" alt="">
+  <h2 id="prodName"></h2>
+  <p id="prodDesc"></p>
+  <h3 id="prodPrice"></h3>
+  <div class="quantity-container">
+    Quantity: <input type="number" id="quantityInput" value="1" min="1">
+  </div>
+  <button class="btn" id="addCartBtn"><i class="fas fa-cart-plus"></i> Add to Cart</button>
+  <button class="btn" id="wishlistBtn"><i class="fas fa-heart"></i> Wishlist</button>
+
+  <div class="reviews">
+    <h3>Reviews</h3>
+    <div id="reviewsList"></div>
+  </div>
+
+  <div class="similar-products">
+    <h3>Similar Products</h3>
+    <div class="similar-grid" id="similarGrid"></div>
+  </div>
+</div>
+
+<script>
+  // --- Product Data ---
+  const products = [
+    { id:1, name:"Silk Long Dress", 
+    price:49.99, 
+    image:"images/silk long dress.jpg",
+    description:"Beautiful evening dress perfect for  parties.",
+     reviews:["★★★★☆ Love it!","★★★☆☆ Good but fits small.","★★★★★ Perfect quality!"] },
+    { id:2, name:"Brown Formals",
+     price:79.99, 
+     image:"images/brown formals.jpg",
+      description:"Stylish formals made with high-quality fabric", 
+      reviews:["★★★★★ Stylish!","★★★★☆ Warm and comfy.","★★★☆☆ Could be cheaper"] },
+    { id:3, name:"White Heels",
+     price:59.99, 
+     image:"images/white heels.jpg",
+      description:"Elegant white heels for special occasions.", 
+      reviews:["★★★★☆ Very comfortable","★★★★★ Perfect match","★★☆☆☆ Slightly small"] },
+    { id:4, name:"Brown Jacket",
+     price:29.99,
+      image:"images/brown jacket.jpg", 
+    description:"Comfortable warm jacket.",
+     reviews:["★★★★★ Classic look","★★★☆☆ Fabric could be softer"] },
+    { id:5, name:"Brown Scarf",
+     price:19.99, 
+     image:"images/brown scarf.jpg",
+      description:"Lightweight brown scarf.", 
+      reviews:["★★★★☆ Nice color","★★★★★ Love this scarf"] },
+    { id:6,
+         name:"Overcoat",
+     price:19.99, 
+     image:"images/brown set.jpg",
+      description:"Lightweight overcoat best for winters.", 
+      reviews:["★★★★☆ Nice color","★★★★★ Love this set"] },
+       { id:7, name:"Brown Skirt Set",
+     price:19.99, 
+     image:"images/brown skirt set.jpg",
+      description:"Lightweight brown skirt set.", 
+      reviews:["★★★★☆ Nice color","★★★★★ Love this skirt"] },
+       { id:8, name:"Sweater",
+     price:19.99, 
+     image:"images/dark grey sweater.jpg",
+      description:"Lightweight winter wear sweater.", 
+      reviews:["★★★★☆ Nice color","★★★★★ Love this a lot"] },
+       { id:9, name:"White Dress",
+     price:19.99, 
+     image:"images/white dress.jpg",
+      description:"Beautiful dress.", 
+      reviews:["★★★★☆ Nice color","★★★★★ Love this"] },
+      { id:10, name:"Casual Set",
+     price:19.99, 
+     image:"images/casual set.jpg",
+      description:"Simple casual wear.", 
+      reviews:["★★★★☆ Nice color","★★★★★ Love this"] }
+     ];
+
+
+  const shopContainer = document.getElementById("shopContainer");
+  const productContainer = document.getElementById("productContainer");
+  const cartCountEl = document.getElementById("cart-count");
+
+  // --- Render Shop Grid ---
+  products.forEach(prod => {
+    const card = document.createElement("div");
+    card.className = "product-card";
+    card.innerHTML = `<img src="${prod.image}" alt="${prod.name}">
+                      <h3>${prod.name}</h3>
+                      <p>$${prod.price.toFixed(2)}</p>`;
+    card.addEventListener("click",()=>showProductDetails(prod.id));
+    shopContainer.appendChild(card);
+  });
+
+  // --- Cart Count ---
+  let cart = JSON.parse(localStorage.getItem("cart")) || [];
+  cartCountEl.textContent = cart.length;
+
+  function updateCartCount(){ cartCountEl.textContent = cart.length; }
+
+  // --- Show Product Details ---
+  function showProductDetails(id){
+    const prod = products.find(p=>p.id===id);
+    if(!prod) return;
+    // hide shop grid
+    shopContainer.style.display="none";
+    productContainer.style.display="block";
+
+    document.getElementById("prodImg").src = prod.image;
+    document.getElementById("prodName").textContent = prod.name;
+    document.getElementById("prodDesc").textContent = prod.description;
+    document.getElementById("prodPrice").textContent = "Price: $"+prod.price.toFixed(2);
+
+    // Reviews
+    const reviewsList = document.getElementById("reviewsList");
+    reviewsList.innerHTML = "";
+    prod.reviews.forEach(r=>{
+      const div = document.createElement("div");
+      div.className="review-item";
+      div.textContent = r;
+      reviewsList.appendChild(div);
+    });
+
+    // Similar Products (other products except this one)
+    const similarGrid = document.getElementById("similarGrid");
+    similarGrid.innerHTML="";
+    products.filter(p=>p.id!==prod.id).forEach(p=>{
+      const img = document.createElement("img");
+      img.src=p.image;
+      img.alt=p.name;
+      img.addEventListener("click",()=>showProductDetails(p.id));
+      similarGrid.appendChild(img);
+    });
+
+    // Add to Cart Button
+    document.getElementById("addCartBtn").onclick = ()=>{
+      const qty = parseInt(document.getElementById("quantityInput").value) || 1;
+      const cartItem = { ...prod, quantity: qty };
+      cart.push(cartItem);
+      localStorage.setItem("cart",JSON.stringify(cart));
+      updateCartCount();
+      alert(prod.name+" added to cart!");
+    };
+
+    // Wishlist Button
+    document.getElementById("wishlistBtn").onclick = ()=>{
+      alert(prod.name+" added to wishlist!");
+    };
+  }
+</script>
+</body>
+</html>
