@@ -151,8 +151,6 @@ header .right {
     color: #555;
   }
 
- 
-    /* Video section just below navbar */
     .video-section {
       margin-top: 0;
       position: relative;
@@ -168,11 +166,17 @@ header .right {
       left: 0;
       width: 100%;
       height: 100%;
-      object-fit: cover;   /* covers full width while cropping if needed */
+      object-fit: cover;   
       z-index: 0;
-    }
+      }
+      .video-desktop {
+  display: block;
+}
 
-    .video-section .content {
+.video-mobile {
+  display: none;
+}
+ .video-section .content {
       position: relative;
       z-index: 1;
       text-align: center;
@@ -244,6 +248,23 @@ header .right {
     font-size: 2rem !important;
   }
 }
+@media (max-width: 768px) {
+
+  .video-desktop {
+    display: none;
+  }
+
+  .video-mobile {
+    display: block;
+  }
+  body {
+    padding-top: 60px;
+  }
+
+  .video-section {
+    height:calc(100vh-60px); /* safer for mobile */
+  }
+}
 
   </style>
  
@@ -277,10 +298,15 @@ header .right {
   </div>
  </header>
   <div class="video-section">
-    <video autoplay loop muted playsinline>
-      <source src="MV.mp4" type="video/mp4">
-      Your browser does not support the video tag.
-    </video>
+    <!-- Desktop / Laptop video -->
+  <video class="video-desktop" autoplay loop muted playsinline>
+    <source src="MV.mp4" type="video/mp4">
+  </video>
+
+  <!-- Mobile video -->
+  <video class="video-mobile" autoplay loop muted playsinline>
+    <source src="Pop up store (1).mp4" type="video/mp4">
+  </video>
     </div>
 </body>
 </html>
