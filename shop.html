@@ -28,8 +28,20 @@
         font-size:2rem;
        }
     a {
-       color:#7a7676;
+       color:#94A3B8;
       text-decoration: none;
+    }
+     nav a {
+      margin-left: 25px;
+      text-decoration: none;
+      color:#94A3B8;
+      font-weight: 500;
+      transition: color 0.3s ease, transform 0.2s ease;
+    }
+
+    nav a:hover {
+      color:#22D3EE;
+      transform: translateY(-2px);
     }
     .cart-icon { 
         position: relative; 
@@ -170,10 +182,14 @@
   <a href="index.html">
      <h1>MAYARA</h1>
   </a>
-  <a href="cart.html" class="cart-icon">
-    <i class="fas fa-shopping-cart"></i>
-    <span id="cart-count">0</span>
-  </a>
+  <nav>
+     <a href="cart.html" class="cart-icon"><i class="fas fa-shopping-cart"></i> <span id="cart-count">0</span></a>
+        <a href="login.html" class="login-icon"><i class="fa fa-user"style="font-size:2rem"></i> </a>
+      <a href="drop.html" class="logo"> <i class="fas fa-bars" style="font-size:2rem"; ></i> </a>
+      <a href="about.html"><i class="fas fa-info-circle"  style="font-size:2rem";></i></a>
+      <a href="contact.html"><i class="fas fa-phone" style="font-size:2rem";></i></a>
+
+    </nav>
 </header>
 
 <!-- Shop Grid -->

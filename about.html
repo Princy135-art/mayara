@@ -4,59 +4,88 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>My Portfolio</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
   <style>
     * {
       box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+      }
 
     body, html {
-      height: 100%;
       font-family: 'Poppins', sans-serif;
-      background:#0F172A;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      text-align:center;
+      background-color:#FFFFFF;
+      margin:0;
+      padding:0;
     }
-    
-    
     header{
-         padding: 16px 12px;
+      width: 100%;
+         padding: 15px 25px;
           background:#0F172A;
-             position: absolute;
-             left:0;
+          display:flex;
+          justify-content:space-between;
+             position:sticky;
               top:0;
               z-index:100;
-              text-align:left ;
-    }
+              align-items: center;
+     }
      h1 { 
         font-size:2rem;
-        font-weight: 500;
-        letter-spacing: 2px;
+        letter-spacing: 1px;
+        font-family:"Poppins",sans-serif ;
        }
     a {
-       color:#7a7676;
+       color:#94A3B8;
       text-decoration: none;
     }
+    nav a {
+      margin-left: 25px;
+      text-decoration: none;
+      color:#94A3B8;
+      transition: color 0.3s ease, transform 0.2s ease;
+    }
+
+    nav a:hover {
+      color:#22D3EE;
+      transform: translateY(-2px);
+    }
+    .cart-icon { 
+        position: relative; 
+        font-size:2rem; 
+        text-decoration:none;
+         color:#94A3B8; }
+    .cart-icon span { 
+        position: absolute;
+         top:-8px; 
+         right:-10px;
+          background:#22D3EE;
+           color:black;
+            font-size:12px;
+             border-radius:50%;
+              padding:3px 7px;
+               cursor:pointer; }
+
 .hero {
       min-height: calc(100vh - 80px);
       display: flex;
       justify-content: center;
       align-items: center;
-      text-align: center;
-      padding: 0 20px;
+      padding: 20px;
     }
     /* Centered content */
     .center-content {
       max-width: 700px;
+      background:#0F172A;   /* darker than page */
+      padding: 45px 40px;
+      border-radius:20px;
       animation: fadeIn 1.5s ease forwards;
       opacity: 0;
+      box-shadow: 0 18px 50px rgba(0,0,0,0.45);
+      text-align: center;
       transform: translateY(20px);
     }
     .center-content img {
       width: 200px;          /* control icon size */
+      border-radius: 50%;
       margin-bottom: 20px; /* space below icon */
     }
 
@@ -75,7 +104,7 @@
 
     .center-content a {
       text-decoration: none;
-      background-color:#0F172A;
+      background-color:#94A3B8;
       color: #fff;
       padding: 12px 25px;
       border-radius: 8px;
@@ -84,7 +113,7 @@
     }
 
     .center-content a:hover {
-      background-color:#0F172A ;
+      background-color:#22D3EE;
       transform: scale(1.05);
     }
 
@@ -113,15 +142,25 @@
 <body>
   <header>
   <a href="index.html">
-     <h1><b>MAYARA</b></h1>
+     <h1>MAYARA</h1>
   </a>
-  </header>
+   <nav>
+     <a href="cart.html" class="cart-icon"><i class="fas fa-shopping-cart"></i> <span id="cart-count">0</span></a>
+        <a href="login.html" class="login-icon"><i class="fa fa-user"style="font-size:2rem"></i> </a>
+      <a href="drop.html" class="logo"> <i class="fas fa-bars" style="font-size:2rem"; ></i> </a>
+      <a href="shop.html"><i class="fas fa-shopping-bag" style="font-size:2rem";></i></a>
+      <a href="about.html"><i class="fas fa-info-circle"  style="font-size:2rem";></i></a>
+      <a href="contact.html"><i class="fas fa-phone" style="font-size:2rem";></i></a>
 
+    </nav>
+  </header>
+<section class="hero">
   <div class="center-content">
     <img src="avatar.jpg" alt="my image">
     <h2>Fashion Designer</h2>
     <p>Hello! I’m a passionate designer who loves blending design with cultures. I graduated from university and started my business in India.</p>
-    <a href="contact.html"><u>CONTACT ME</u></a>
+    <a href="contact.html">CONTACT ME</a>
   </div>
+</section>
 </body>
 </html>

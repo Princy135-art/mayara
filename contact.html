@@ -8,35 +8,54 @@
   <style>
     /* General Styles */
     body {
-      font-family: 'Arial', sans-serif;
+      font-family: 'Poppins', sans-serif;
       margin: 0;
       padding: 0;
-      background:#FFFFFF;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      min-height: 100vh;
     }
-    header{
-      background: rgba(0,0,0,0);
-      transition: background-color 0.3s ease;
-      padding: 10px 10px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      position: fixed;
-      top: 0;
-      left:0;
+     header {
       width:100%;
-      height:60px;
-      z-index: 100;
+         padding: 15px 25px;
+          background:#0F172A;
+          display:flex;
+           justify-content:space-between;
+            align-items:center; 
+            box-shadow:0 2px 8px rgba(0, 0, 0, 0.1);
+             position: sticky;
+              top:0;
+              z-index:100;}
+    a {
+       color:#94A3B8;
+      text-decoration: none;
     }
-    /* Contact Section */
+    
+    header h1 {
+      font-size: 2rem;
+      letter-spacing: 1px;
+      cursor: pointer;
+      font-family:"Poppins",sans-serif;
+    }
+
+
+    nav a {
+      margin-left: 25px;
+      text-decoration: none;
+      color:#94A3B8;
+      font-weight: 500;
+      transition: color 0.3s ease, transform 0.2s ease;
+    }
+
+    nav a:hover {
+      color:#22D3EE;
+      transform: translateY(-2px);
+    }
+    * {
+    box-sizing: border-box;
+  }
+ /* Contact Section */
     .contact-container {
       background:#0F172A;
       padding: 50px;
-      margin: 50px 0;
+      margin: 50px auto;
       border-radius: 15px;
       box-shadow: 0 10px 25px rgba(0,0,0,0.1);
       max-width: 600px;
@@ -189,7 +208,21 @@
   </style>
 </head>
 <body>
+<!-- Header -->
+  <header>
+    <a href="index.html">
+     <h1>MAYARA</h1>
+  </a>
+  
+      <nav>
+        <a href="login.html" class="login-icon"><i class="fa fa-user"style="font-size:2rem"></i> </a>
+      <a href="drop.html" class="logo"> <i class="fas fa-bars" style="font-size:2rem"; ></i> </a>
+      <a href="shop.html"><i class="fas fa-shopping-bag" style="font-size:2rem";></i></a>
+      <a href="about.html"><i class="fas fa-info-circle"  style="font-size:2rem";></i></a>
+      <a href="contact.html"><i class="fas fa-phone" style="font-size:2rem";></i></a>
 
+    </nav>
+  </header>
   <div class="contact-container">
     <h2><b>Contact Us</b></h2>
     <form id="contactForm">
@@ -221,9 +254,8 @@
 
   <footer>
     &copy; 2025 MAYARA. All rights reserved.
+
+
   </footer>
-
-  
-
 </body>
 </html>
