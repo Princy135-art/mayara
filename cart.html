@@ -15,16 +15,35 @@
       padding: 0;
       background:#FFFFFF ;
     }
-header {
-  display: flex;
-  justify-content: flex-end;
-  padding: 20px;
-  background:#0F172A;
-}
- header h1 {
-      font-size: 1.8rem;
+ header {
+         padding: 8px 25px;
+          background:#0F172A;
+          display:flex;
+           justify-content:space-between;
+            align-items:center; 
+            box-shadow:0 2px 8px rgba(0, 0, 0, 0.1);
+             position: sticky;
+              top:0;
+              z-index:100;}
+    h1 { 
+        font-size:2rem;
+       }
+    a {
+       color:#94A3B8;
+      text-decoration: none;
+    }
+     nav a {
+      margin-left: 25px;
+      text-decoration: none;
+      color:#94A3B8;
+      font-weight: 500;
+      transition: color 0.3s ease, transform 0.2s ease;
     }
 
+    nav a:hover {
+      color:#22D3EE;
+      transform: translateY(-2px);
+    }
     .cart-icon {
       font-size: 2rem;
       color:#94A3B8 ;
@@ -36,7 +55,7 @@ header {
       top: -8px;
       right: -10px;
       background:#22D3EE;
-      color: black;
+      color:#0F172A;
       font-size: 12px;
       border-radius: 50%;
       padding: 3px 7px;
@@ -84,18 +103,21 @@ header {
     .cart-item-info {
       flex: 1;
       margin-left: 20px;
+      color:#94A3B8;
+      font-size:1.2rem;
     }
 
-    .cart-item-info h4 {
+    .cart-item-info h3 {
       margin: 0;
       font-size: 1.2rem;
+      color:#94A3B8;
     }
 
     .cart-total {
       color:#22D3EE;
       text-align: right;
       margin-top: 20px;
-      font-size: 1.2rem;
+      font-size: 1.4rem;
       font-weight: bold;
     }
 
@@ -116,13 +138,19 @@ header {
   </style>
 </head>
 <body>
-<header>
-    <a href="#" class="cart-icon">
-      <i class="fas fa-shopping-cart"></i>
-      <span id="cart-count">0</span>
-    </a>
-  </header>
+  <header>
+  <a href="index.html">
+     <h1>MAYARA</h1>
+  </a>
+  <nav>
+     <a href="cart.html" class="cart-icon"><i class="fas fa-shopping-cart"></i> <span id="cart-count">0</span></a>
+        <a href="login.html" class="login-icon"><i class="fa fa-user"style="font-size:2rem"></i> </a>
+      <a href="drop.html" class="logo"> <i class="fas fa-bars" style="font-size:2rem"; ></i> </a>
+      <a href="about.html"><i class="fas fa-info-circle"  style="font-size:2rem";></i></a>
+      <a href="contact.html"><i class="fas fa-phone" style="font-size:2rem";></i></a>
 
+    </nav>
+</header>
   <div class="cart-container">
     <div class="empty-cart" id="emptyCart">
       <i class="fas fa-shopping-cart"></i>
