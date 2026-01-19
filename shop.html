@@ -78,10 +78,10 @@
         transform: translateY(-5px);
          box-shadow:0 4px 12px rgba(0,0,0,0.2); }
     .product-card img {
-      display: block;
+      display:flex;
          width:100%; 
-         height:280px;
-         object-fit:cover;
+         aspect-ratio: 3/4;
+         object-fit:contain;
          object-position:center ;
          border-radius:10px; }
     .product-card h3 {
@@ -107,29 +107,27 @@
     .product-container {
          display:none;
         max-width:900px; 
+        width:90%;
         margin:60px auto;
          background:rgb(245, 244, 244);
           border-radius:10px;
            padding:30px;
-            box-shadow:0 2px 8px rgba(0,0,0,0.1); display:none; }
+            box-shadow:0 2px 8px rgba(0,0,0,0.1);
+          }
     .product-image-wrapper {
-         width:100%; 
-         height:500px; 
+         width:50%; 
+         max-height:500px;
          display:flex;
          align-items: center;
           justify-content:center;
           overflow: hidden;
          background:#7a7676;
-          border-radius:10px; }
+          border-radius:12px;
+         }
           .product-image-wrapper img {
-        display: block;
-           max-width: 100%;
-             max-height: 100%;
-             height: auto;
-                 width: auto;
-             object-fit: contain;     /* show entire image, no cropping */
-              object-position: center;
-             border-radius: 8px;
+           max-width:auto;
+             height:100%;
+            object-fit: contain;     /* show entire image, no cropping */
 }
 .product-container h2 {
     margin:20px 0 10px; }
@@ -164,14 +162,15 @@
          gap:15px; }
     .similar-grid img { 
         width:100%; 
-        height:180px; 
+        height:180px;
         object-fit:cover;
         border-radius:10px; 
         cursor:pointer; }
         /* Responsive tweaks */
   @media (max-width: 600px) {
-    .product-card img { height: 220px; }
-    .product-image-wrapper { height: 320px; }
+    .product-image-wrapper{
+      max-height:300px;
+    }
   }
 
   </style>
@@ -198,6 +197,7 @@
 <!-- Product Details -->
 <div class="product-container" id="productContainer">
   <img id="prodImg" src="" alt="">
+
   <h2 id="prodName"></h2>
   <p id="prodDesc"></p>
   <h3 id="prodPrice"></h3>
@@ -223,128 +223,164 @@
   const products = [
     { id:1, name:"Silk Long Dress", 
     price:49.99, 
-    image:"images/silk long dress.jpg",
+    image:"images/silk-long-dress.jpg",
     description:"Beautiful evening dress perfect for  parties.",
      reviews:["★★★★☆ Love it!","★★★☆☆ Good but fits small.","★★★★★ Perfect quality!"] },
     { id:2, name:"Brown Formals",
      price:79.99, 
-     image:"images/brown formals.jpg",
+     image:"images/brown-formals.jpg",
       description:"Stylish formals made with high-quality fabric", 
       reviews:["★★★★★ Stylish!","★★★★☆ Warm and comfy.","★★★☆☆ Could be cheaper"] },
     { id:3, name:"White Heels",
      price:59.99, 
-     image:"images/white heels.jpg",
+     image:"images/white-heels.jpg",
       description:"Elegant white heels for special occasions.", 
       reviews:["★★★★☆ Very comfortable","★★★★★ Perfect match","★★☆☆☆ Slightly small"] },
     { id:4, name:"Brown Jacket",
      price:29.99,
-      image:"images/brown jacket.jpg", 
+      image:"images/brown-jacket.jpg", 
     description:"Comfortable warm jacket.",
      reviews:["★★★★★ Classic look","★★★☆☆ Fabric could be softer"] },
     { id:5, name:"Brown Scarf",
      price:19.99, 
-     image:"images/brown scarf.jpg",
+     image:"images/brown-scarf.jpg",
       description:"Lightweight brown scarf.", 
       reviews:["★★★★☆ Nice color","★★★★★ Love this scarf"] },
     { id:6,
          name:"Overcoat",
      price:19.99, 
-     image:"images/brown set.jpg",
+     image:"images/brown-set.jpg",
       description:"Lightweight overcoat best for winters.", 
       reviews:["★★★★☆ Nice color","★★★★★ Love this set"] },
        { id:7, name:"Brown Skirt Set",
      price:19.99, 
-     image:"images/brown skirt set.jpg",
+     image:"images/brown-skirt-set.jpg",
       description:"Lightweight brown skirt set.", 
       reviews:["★★★★☆ Nice color","★★★★★ Love this skirt"] },
        { id:8, name:"Sweater",
      price:19.99, 
-     image:"images/dark grey sweater.jpg",
+     image:"images/dark-grey-sweater.jpg",
       description:"Lightweight winter wear sweater.", 
       reviews:["★★★★☆ Nice color","★★★★★ Love this a lot"] },
-       { id:9, name:"White Dress",
+       { id:9, name:"White-Dress",
      price:19.99, 
-     image:"images/white dress.jpg",
+     image:"images/white-dress.jpg",
       description:"Beautiful dress.", 
       reviews:["★★★★☆ Nice color","★★★★★ Love this"] },
       { id:10, name:"Casual Set",
      price:19.99, 
-     image:"images/casual set.jpg",
+     image:"images/casual-set.jpg",
       description:"Simple casual wear.", 
       reviews:["★★★★☆ Nice color","★★★★★ Love this"] }
      ];
 
 
-  const shopContainer = document.getElementById("shopContainer");
-  const productContainer = document.getElementById("productContainer");
-  const cartCountEl = document.getElementById("cart-count");
+/* ============================
+   2️⃣ DOM REFERENCES
+   ============================ */
+const shopContainer     = document.getElementById("shopContainer");
+const productContainer  = document.getElementById("productContainer");
 
-  // --- Render Shop Grid ---
-  products.forEach(prod => {
+const prodImg   = document.getElementById("prodImg");
+const prodName  = document.getElementById("prodName");
+const prodDesc  = document.getElementById("prodDesc");
+const prodPrice = document.getElementById("prodPrice");
+
+const reviewsList = document.getElementById("reviewsList");
+const similarGrid = document.getElementById("similarGrid");
+
+
+/* ============================
+   3️⃣ RENDER SHOP GRID
+   ============================ */
+function renderShop() {
+  shopContainer.innerHTML = "";
+
+  products.forEach(product => {
     const card = document.createElement("div");
     card.className = "product-card";
-    card.innerHTML = `<img src="${prod.image}" alt="${prod.name}">
-                      <h3>${prod.name}</h3>
-                      <p>$${prod.price.toFixed(2)}</p>`;
-    card.addEventListener("click",()=>showProductDetails(prod.id));
+
+    card.innerHTML = `
+      <img src="${product.image}" alt="${product.name}">
+      <h3>${product.name}</h3>
+      <p>$${product.price.toFixed(2)}</p>
+    `;
+
+    /* Clicking a card opens product details */
+    card.addEventListener("click", () => {
+      showProductDetails(product.id);
+    });
+
     shopContainer.appendChild(card);
   });
+}
 
-  // --- Cart Count ---
-  let cart = JSON.parse(localStorage.getItem("cart")) || [];
-  cartCountEl.textContent = cart.length;
 
-  function updateCartCount(){ cartCountEl.textContent = cart.length; }
+/* ============================
+   4️⃣ SHOW PRODUCT DETAILS
+   ============================ */
+function showProductDetails(productId) {
 
-  // --- Show Product Details ---
-  function showProductDetails(id){
-    const prod = products.find(p=>p.id===id);
-    if(!prod) return;
-    // hide shop grid
-    shopContainer.style.display="none";
-    productContainer.style.display="block";
+  /* STEP 1: find product safely */
+  const product = products.find(p => p.id === productId);
+  if (!product) return;
 
-    document.getElementById("prodImg").src = prod.image;
-    document.getElementById("prodName").textContent = prod.name;
-    document.getElementById("prodDesc").textContent = prod.description;
-    document.getElementById("prodPrice").textContent = "Price: $"+prod.price.toFixed(2);
+  /* STEP 2: switch views */
+  shopContainer.style.display = "none";
+  productContainer.style.display = "block";
 
-    // Reviews
-    const reviewsList = document.getElementById("reviewsList");
-    reviewsList.innerHTML = "";
-    prod.reviews.forEach(r=>{
-      const div = document.createElement("div");
-      div.className="review-item";
-      div.textContent = r;
-      reviewsList.appendChild(div);
-    });
+  /* STEP 3: LOCK image before loading (prevents jump) */
+  prodImg.style.opacity = "0";
 
-    // Similar Products (other products except this one)
-    const similarGrid = document.getElementById("similarGrid");
-    similarGrid.innerHTML="";
-    products.filter(p=>p.id!==prod.id).forEach(p=>{
+  /* IMPORTANT: onload MUST be set BEFORE src */
+  prodImg.onload = () => {
+    prodImg.style.opacity = "1";   // show only after fully loaded
+  };
+
+  /* STEP 4: now set image source */
+  prodImg.src = product.image;
+
+  /* STEP 5: set text content */
+  prodName.textContent  = product.name;
+  prodDesc.textContent  = product.description;
+  prodPrice.textContent = "Price: $" + product.price.toFixed(2);
+
+  /* ============================
+     REVIEWS
+     ============================ */
+  reviewsList.innerHTML = "";
+  product.reviews.forEach(review => {
+    const div = document.createElement("div");
+    div.className = "review-item";
+    div.textContent = review;
+    reviewsList.appendChild(div);
+  });
+
+  /* ============================
+     SIMILAR PRODUCTS
+     ============================ */
+  similarGrid.innerHTML = "";
+
+  products
+    .filter(p => p.id !== product.id)
+    .forEach(similar => {
       const img = document.createElement("img");
-      img.src=p.image;
-      img.alt=p.name;
-      img.addEventListener("click",()=>showProductDetails(p.id));
+      img.src = similar.image;
+      img.alt = similar.name;
+
+      img.addEventListener("click", () => {
+        showProductDetails(similar.id);
+      });
+
       similarGrid.appendChild(img);
     });
+}
 
-    // Add to Cart Button
-    document.getElementById("addCartBtn").onclick = ()=>{
-      const qty = parseInt(document.getElementById("quantityInput").value) || 1;
-      const cartItem = { ...prod, quantity: qty };
-      cart.push(cartItem);
-      localStorage.setItem("cart",JSON.stringify(cart));
-      updateCartCount();
-      alert(prod.name+" added to cart!");
-    };
 
-    // Wishlist Button
-    document.getElementById("wishlistBtn").onclick = ()=>{
-      alert(prod.name+" added to wishlist!");
-    };
-  }
+/* ============================
+   5️⃣ INITIAL LOAD
+   ============================ */
+renderShop();
 </script>
 </body>
 </html>
